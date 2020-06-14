@@ -16,6 +16,32 @@ export default function MessageList(props) {
         getMessages();
     },[])
 
+    const onSendMessage = (e) => {
+
+        let message = e.target.firstChild.value;
+
+        let tmpMessages = [...messages];
+        console.log(tmpMessages)
+
+        let newMessage = {
+            id: messages[messages.length-1].id + 1,
+            author: 'apple',
+            message,
+            timestamp: new Date().getTime()
+        };
+
+        tmpMessages.push(newMessage);
+
+        console.log(e.target.firstChild.value)
+
+        setMessages(tmpMessages);
+
+        e.target.firstChild.value = "";
+
+        e.preventDefault();
+
+    };
+
 
     const getMessages = () => {
         var tempMessages = [
@@ -162,7 +188,9 @@ export default function MessageList(props) {
                 <ToolbarButton key="money" icon="ion-ios-card" />,
                 <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
                 <ToolbarButton key="emoji" icon="ion-ios-happy" />
-            ]}/>
+            ]}
+            onSubmit={(e) => onSendMessage(e)}
+            />
         </div>
     );
 }
